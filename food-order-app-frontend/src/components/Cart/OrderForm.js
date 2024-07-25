@@ -30,18 +30,19 @@ function OrderForm(props) {
       enteredAddress.trim().length > 3 &&
       enteredPhone.trim().length === 10
     ) {
-      const jsonFormattedData = [
-        JSON.stringify(enteredName),
-        JSON.stringify(enteredAddress),
-        JSON.stringify(enteredPhone),
-        JSON.stringify(cartCtx.items),
-      ];
+      const jsonFormattedData = JSON.stringify({
+        name: enteredName,
+        address: enteredAddress,
+        phoe: enteredPhone,
+        items: cartCtx.items,
+      });
+
       console.log(jsonFormattedData);
       try {
         const res = await fetch("http://localhost:5000/order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(jsonFormattedData),
+          body: jsonFormattedData,
         });
 
         const result = await res.json();
